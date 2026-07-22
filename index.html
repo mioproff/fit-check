@@ -1561,9 +1561,9 @@ kbd{
     const now = new Date();
     const hour = now.getHours();
     let greeting = "Hallo";
-    if(hour < 11) greeting = "Guten Morgen";
-    else if(hour < 17) greeting = "Hallo";
-    else greeting = "Guten Abend";
+    if(hour < 11) greeting = "Guten Morgen Mio";
+    else if(hour < 17) greeting = "Hallo Mio";
+    else greeting = "Guten Abend Mio";
     document.getElementById("greetText").textContent = greeting + "! 👋";
     document.getElementById("dateText").textContent = formatDateLong(now);
     document.getElementById("quoteText").textContent = "„" + QUOTES[dayOfYear(now) % QUOTES.length] + "“";
