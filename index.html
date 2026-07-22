@@ -483,6 +483,10 @@ p{ margin: 0; }
   cursor: pointer;
 }
 
+.meal-check.checked{
+  opacity: 0.6;
+}
+
 .meal-txt{
   flex: 1;
 }
@@ -667,7 +671,6 @@ p{ margin: 0; }
 
 .timer-widget:active{ 
   cursor: grabbing; 
-  transform: scale(0.95); 
 }
 
 .timer-display{
@@ -982,7 +985,7 @@ p{ margin: 0; }
     </div>
 
     <div class="glass card">
-      <div class="card-title">Mahlzeiten</div>
+      <div class="card-title">Was hast du gegessen? 🍽️</div>
       <div id="mealList"></div>
     </div>
 
@@ -1243,24 +1246,24 @@ function initViews() {
     dayTabs.appendChild(btn);
   });
   
-  // Meals
+  // Meals - einfach abhaken was man gegessen hat
   const meals = [
-    { name: '🥣 Frühstück', kcal: '300-400' },
-    { name: '🍎 Snack', kcal: '100-150' },
-    { name: '🍝 Mittagessen', kcal: '600-700' },
-    { name: '🥜 Snack', kcal: '100-150' },
-    { name: '🍗 Abendessen', kcal: '500-600' }
+    '🥣 Frühstück',
+    '🍎 Snack Morgens',
+    '🍝 Mittagessen',
+    '🥜 Snack Nachmittag',
+    '🍗 Abendessen',
+    '🥤 Getränk'
   ];
   const mealList = document.getElementById('mealList');
   mealList.innerHTML = '';
   meals.forEach(m => {
     const item = document.createElement('div');
-    item.className = 'meal-check';
+    item.className = 'meal-check glass';
     item.innerHTML = `
-      <input type="checkbox">
+      <input type="checkbox" onchange="updateMealUI(this)">
       <div class="meal-txt">
-        <div class="meal-name">${m.name}</div>
-        <div class="meal-kcal">${m.kcal} kcal</div>
+        <div class="meal-name">${m}</div>
       </div>
     `;
     mealList.appendChild(item);
@@ -1287,6 +1290,15 @@ function initViews() {
     };
     swatches.appendChild(sw);
   });
+}
+
+function updateMealUI(checkbox) {
+  const mealItem = checkbox.closest('.meal-check');
+  if (checkbox.checked) {
+    mealItem.classList.add('checked');
+  } else {
+    mealItem.classList.remove('checked');
+  }
 }
 
 function selectDay(idx, btn) {
